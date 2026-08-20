@@ -1,0 +1,37 @@
+detect:
+  events:
+  - NEW_PROCESS
+  - EXISTING_PROCESS
+  op: and
+  rules:
+    - op: or
+      rules:
+        - case sensitive: false
+          op: ends with
+          path: event/FILE_PATH
+          value: \LaZagne.exe
+        - case sensitive: false
+          op: is
+          path: event/HASH
+          value: dc06d62ee95062e714f2566c95b8edaabfd387023b1bf98a09078b84007d5268
+        - case sensitive: false
+          op: matches
+          path: event/COMMAND_LINE
+          re: >-
+            .*\.exe.*((-version|-h).*(browsers|wifi|passwords|memory)|(browsers|wifi|passwords|memory).*(-version|-h)).*
+    - not: true
+      op: or
+      rules:
+        - case sensitive: false
+          op: ends with
+          path: event/PARENT/FILE_PATH
+          value: \LaZagne.exe
+        - case sensitive: false
+          op: is
+          path: event/PARENT/HASH
+          value: dc06d62ee95062e714f2566c95b8edaabfd387023b1bf98a09078b84007d5268
+Response:
+  - action: report
+    name: Suspicious Credential Info Tool Execution via Shell
+    priority: 3
+    publish: true
