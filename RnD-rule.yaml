@@ -18,7 +18,7 @@ detect:
           op: matches
           path: event/COMMAND_LINE
           re: >-
-            .*\.exe.*((-version|-h).*(browsers|wifi|passwords|memory)|(browsers|wifi|passwords|memory).*(-version|-h)).*
+            .*\.exe.*((-version|-h|-v).*(all|browsers|chats|databases|games|git|mails|maven|memory|multimedia|php|svn|sysadmin|windows|wifi|unused)|(all|browsers|chats|databases|games|git|mails|maven|memory|multimedia|php|svn|sysadmin|windows|wifi|unused).*(-version|-h|-v)).*
     - not: true
       op: or
       rules:
